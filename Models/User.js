@@ -9,7 +9,8 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     phone: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
-    carsId: [{ type: Schema.Types.ObjectId, ref: "Car" }]
+    carsId: [{ type: Schema.Types.ObjectId, ref: "Car" }],
+    chatLogsId: { type: Schema.Types.ObjectId, ref: "ChatLog" }
 });
 
 export default model("User", userSchema);

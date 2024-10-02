@@ -4,6 +4,7 @@ import "./DB/index.js";
 import userRouter from './routes/userRouter.js';
 import carRouter from './routes/carRouter.js';
 import errorHandler from './middlewares/errorHandler.js';
+import chatLogRouter from './routes/chatLogRouter.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 app.use('/cars', carRouter);
+app.use('/chatLogs', chatLogRouter);
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Not found' });
 });

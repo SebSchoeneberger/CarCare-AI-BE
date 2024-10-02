@@ -37,3 +37,24 @@ export const carSchema = {
     fuel: Joi.string().optional(),
   }),
 };
+
+export const chatLogSchema = {
+  POST: Joi.object({
+    userId: Joi.string().required(),
+    messages: Joi.array().items(
+      Joi.object({
+        type: Joi.string().valid("user", "bot").required(),
+        message: Joi.string().min(1).required(),
+      })
+    ).required()
+  }),
+  PUT: Joi.object({
+    userId: Joi.string().optional(),
+    messages: Joi.array().items(
+      Joi.object({
+        type: Joi.string().valid("user", "bot").optional(),
+        message: Joi.string().min(1).optional(),
+      })
+    ).optional()
+  })
+};
