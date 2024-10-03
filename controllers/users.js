@@ -11,8 +11,10 @@ export const getUsers = asyncHandler(async (req, res, next) => {
 export const getUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
+  if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
+
   const user = await User.findById(id).populate('carsId');
-  if (!user) throw new ErrorResponse(`User with id ${id} not found`, 404);
+  if (!user) throw new ErrorResponse(`User with Id: ${id} not found`, 404);
 
   res.status(200).json({ success: true, data: user });
 });
@@ -32,10 +34,10 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     body: { firstName, lastName, email, password, phone, carsId }
   } = req;
 
-  if (!isValidObjectId(id)) throw new ErrorResponse(`User with id ${id} not found`, 404);
+  if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
 
   const user = await User.findByIdAndUpdate(id, { firstName, lastName, email, password, phone, carsId }, { new: true, runValidators: true });
-  if (!user) throw new ErrorResponse(`User with id ${id} not found`, 404);
+  if (!user) throw new ErrorResponse(`User with Id: ${id} not found`, 404);
 
   res.status(200).json({ success: true, data: user });
 });
@@ -43,10 +45,10 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 export const deleteUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  if (!isValidObjectId(id)) throw new ErrorResponse(`User with id ${id} not found`, 404);
+  if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
 
   const user = await User.findByIdAndDelete(id);
-  if (!user) throw new ErrorResponse(`User with id ${id} not found`, 404);
+  if (!user) throw new ErrorResponse(`User with Id: ${id} not found`, 404);
 
-  res.status(200).json({ success: `User with id of ${id} was deleted`});
+  res.status(200).json({ success: `User with Id: ${id} was deleted`});
 });

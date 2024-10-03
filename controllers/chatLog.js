@@ -10,11 +10,13 @@ export const getChatLogs = asyncHandler(async (req, res, next) => {
 });
 
 export const getChatLog = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
+    const { id } = req.params;
 
-  const chatLog = await ChatLog.findById(id);
-  if (!chatLog) throw new ErrorResponse(`ChatLog with id ${id} not found`, 404);
-  res.status(200).json({ success: true, data: chatLog });
+    if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
+
+    const chatLog = await ChatLog.findById(id);
+    if (!chatLog) throw new ErrorResponse(`ChatLog with Id: ${id} not found`, 404);
+    res.status(200).json({ success: true, data: chatLog });
 });
 
 export const createChatLog = asyncHandler(async (req, res, next) => {
@@ -39,11 +41,11 @@ export const updateChatLog = asyncHandler(async (req, res, next) => {
         body: { userId, messages }
     } = req;
     
-    if (!isValidObjectId(id)) throw new ErrorResponse(`ChatLog with id ${id} not found`, 404);
+    if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
     
     const chatLog = await ChatLog.findByIdAndUpdate(id, { userId, messages }, { new: true });
     
-    if (!chatLog) throw new ErrorResponse(`ChatLog with id ${id} not found`, 404);
+    if (!chatLog) throw new ErrorResponse(`ChatLog with Id: ${id} not found`, 404);
     
     res.status(200).json({ success: true, data: chatLog });
     });
@@ -51,10 +53,10 @@ export const updateChatLog = asyncHandler(async (req, res, next) => {
 export const deleteChatLog = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     
-        if (!isValidObjectId(id)) throw new ErrorResponse(`ChatLog with id ${id} not found`, 404);
+        if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
     
         const chat = await ChatLog.findByIdAndDelete(id);
-        if (!chat) throw new ErrorResponse(`ChatLog with id ${id} not found`, 404);
+        if (!chat) throw new ErrorResponse(`ChatLog with Id: ${id} not found`, 404);
         
-        res.status(200).json({ success: `ChatLog with id of ${id} was deleted`});
+        res.status(200).json({ success: `ChatLog with Id: ${id} was deleted`});
     });

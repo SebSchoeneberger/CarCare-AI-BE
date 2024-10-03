@@ -12,8 +12,10 @@ export const getCars = asyncHandler(async (req, res, next) => {
 export const getCar = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
+  if(!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
+
   const car = await Car.findById(id);
-  if (!car) throw new ErrorResponse(`Car with id ${id} not found`, 404);
+  if (!car) throw new ErrorResponse(`Car with id: ${id} not found`, 404);
 
   res.status(200).json({ success: true, data: car });
 });
@@ -40,11 +42,11 @@ export const updateCar = asyncHandler(async (req, res, next) => {
         body: { userId, make, model, year, vin, fuel }
     } = req;
     
-    if (!isValidObjectId(id)) throw new ErrorResponse(`Car with id ${id} not found`, 404);
+    if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
     
     const car = await Car.findByIdAndUpdate(id, { userId, make, model, year, vin, fuel }, { new: true, runValidators: true });
     
-    if (!car) throw new ErrorResponse(`Car with id ${id} not found`, 404);
+    if (!car) throw new ErrorResponse(`Car with id: ${id} not found`, 404);
     
     res.status(200).json({ success: true, data: car });
     });
@@ -52,11 +54,11 @@ export const updateCar = asyncHandler(async (req, res, next) => {
 export const deleteCar = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     
-        if (!isValidObjectId(id)) throw new ErrorResponse(`Car with id ${id} not found`, 404);
+        if (!isValidObjectId(id)) throw new ErrorResponse(`Invalid Id: ${id}`, 404);
     
         const car = await Car.findByIdAndDelete(id);
     
-        if (!car) throw new ErrorResponse(`Car with id ${id} not found`, 404);
+        if (!car) throw new ErrorResponse(`Car with id: ${id} not found`, 404);
     
-        res.status(200).json({ success: `Post with id of ${id} was deleted`});
+        res.status(200).json({ success: `Car with id: ${id} was deleted`});
     });
