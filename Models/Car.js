@@ -9,6 +9,7 @@ const carSchema = new Schema({
     year: { type: Number, required: true },
     vin: { type: String, required: false },
     fuel: { type: String, required: false },
+    serviceHistoryId: [{ type: Schema.Types.ObjectId, ref: "ServiceHistory" }],
     createdAt: { type: Date, default: Date.now },
 });
 

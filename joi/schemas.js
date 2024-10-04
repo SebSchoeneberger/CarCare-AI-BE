@@ -58,3 +58,25 @@ export const chatLogSchema = {
     ).optional()
   })
 };
+
+export const serviceHistorySchema = {
+  POST: Joi.object({
+    carId: Joi.string().required(),
+    serviceDate: Joi.date().required(),
+    mileage: Joi.number().integer().min(0).required(),
+    serviceType: Joi.string().required(),
+    garage: Joi.string().optional(),
+    cost: Joi.number().optional(),
+    notes: Joi.string().min(2).max(250).optional(),
+    createdAt: Joi.date().default(Date.now)
+  }),
+  PUT: Joi.object({
+    carId: Joi.string().optional(),
+    serviceDate: Joi.date().optional(),
+    mileage: Joi.number().integer().min(0).optional(),
+    serviceType: Joi.string().optional(),
+    garage: Joi.string().optional(),
+    cost: Joi.number().optional(),
+    notes: Joi.string().min(2).max(250).optional(),
+  }),
+};
