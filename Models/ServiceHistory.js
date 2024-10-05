@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const {Schema, model} = mongoose;
 
 const serviceHistorySchema = new Schema({
-    carId: { type: Schema.types.ObjectId, ref: "Car", required: true },
+    carId: { type: Schema.Types.ObjectId, ref: "Car", required: true },
     serviceDate: { type: Date, required: true },
     mileage: { type: Number, required: true },
     serviceType: { type: String, required: true },
