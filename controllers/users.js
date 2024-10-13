@@ -19,15 +19,6 @@ export const getUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: user });
 });
 
-export const createUser = asyncHandler(async (req, res, next) => {
-  const { firstName, lastName, email, password, phone, carsId } = req.body;
-
-  if (!firstName || !lastName || !email || !password) throw new ErrorResponse("Please provide all required fields", 400);
-
-  const user = await User.create({ firstName, lastName, email, password, phone, carsId });
-  res.status(201).json({ success: true, data: user });
-});
-
 export const updateUser = asyncHandler(async (req, res, next) => { 
   const {
     params: { id },

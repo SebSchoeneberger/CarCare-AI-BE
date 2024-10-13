@@ -16,6 +16,10 @@ export const userSchema = {
     password: Joi.string().min(8).max(12).optional(),
     phone: Joi.string().optional(),
   }),
+  LOGIN: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).max(12).required(),
+  }),
 };
 
 export const carSchema = {

@@ -7,6 +7,7 @@ import errorHandler from './middlewares/errorHandler.js';
 import chatLogRouter from './routes/chatLogRouter.js';
 import serviceHistoryRouter from './routes/serviceHistoryRouter.js';
 import openAiRouter from './routes/openAiRouter.js';
+import authRouter from './routes/authRouter.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use('/cars', carRouter);
 app.use('/chatLogs', chatLogRouter);
 app.use('/serviceHistories', serviceHistoryRouter);
 app.use('/openAi', openAiRouter);
+app.use('/auth', authRouter);
 
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Not found' });
@@ -30,6 +32,6 @@ app.use(errorHandler);
 
 
 app.listen(PORT, () => {
-  console.log(`CarCare Ai app Backend running at http://localhost:${PORT}`);
+  console.log(`CarCare Ai App Backend running at http://localhost:${PORT}`);
 });
 
