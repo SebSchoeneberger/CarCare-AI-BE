@@ -1,6 +1,6 @@
 import User from "../Models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import ErrorResponse from "../utils/ErrorResponse.js";
+import ErrorResponse from "../utils/errorResponse.js";
 import { isValidObjectId } from "mongoose";
 
 export const getUsers = asyncHandler(async (req, res, next) => {

@@ -1,7 +1,7 @@
 import Car from "../Models/Car.js";
 import User from "../Models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import ErrorResponse from "../utils/ErrorResponse.js";
+import ErrorResponse from "../utils/errorResponse.js";
 import { isValidObjectId } from "mongoose";
 
 export const getCars = asyncHandler(async (req, res, next) => {

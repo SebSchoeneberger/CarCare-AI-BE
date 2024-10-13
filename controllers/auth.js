@@ -1,6 +1,6 @@
 import User from "../Models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import ErrorResponse from "../utils/ErrorResponse.js";
+import ErrorResponse from "../utils/errorResponse.js";
 import { isValidObjectId } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -70,4 +70,13 @@ export const login = asyncHandler(async (req, res, next) => {
         email: user.email
       },
     token });
+});
+
+export const getProfile = asyncHandler(async (req, res, next) => {
+    const { userId, email } = req;
+
+    const user = await User.findById(userId)
+    if (!user) throw new ErrorResponse("User not found", 404);
+
+    res.status(200).json({ success: true, data: user });
 });
